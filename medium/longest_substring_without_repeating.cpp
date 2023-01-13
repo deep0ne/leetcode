@@ -6,30 +6,16 @@ using namespace std;
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        size_t counter = 0;
-        string substring;
-        std::unordered_set<char> characters;
-        for(int i = 0; i < s.size(); ++i) {
-            if(characters.count(s[i]) == 0) {
-                characters.insert(s[i]);
-                substring += s[i];
+        std::unordered_set<char> letters;
+        int i = 0, j = 0, counter_max = 0;
+        while(i < s.size() && j < s.size()) {
+            if(letters.count(s[j]) == 0) {
+                letters.insert(s[j++]);
+                counter_max = std::max(counter_max, static_cast<int>(letters.size()));
             } else {
-                if(substring.size() > counter) {
-                    counter = substring.size();
-                }
-                substring.clear();
-                characters.clear();
-                substring += s[i-1];
-                substring += s[i];
-                characters.insert(s[i-1]);
-                characters.insert(s[i]);
+                letters.erase(s[i++]);
             }
         }
-        return std::max(substring.size(), counter);
+        return counter_max;
     }
 };
-
-int main() {
-    Solution solution;
-    solution.lengthOfLongestSubstring("dvdf");
-}
