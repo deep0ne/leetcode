@@ -17,7 +17,7 @@ class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
         vector<vector<int>> ans;
-        sort(intervals.begin(), intervals.end());
+        sort(intervals.begin(), intervals.end()); // nlogn
         ans.push_back(intervals[0]);
         for (int i = 1, j = 0; i < intervals.size(); ++i) {
             if(ans[j][1] >= intervals[i][0]) {
